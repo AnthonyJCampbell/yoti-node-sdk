@@ -4,11 +4,11 @@ const Validation = require('../../../yoti_common/validation');
 
 class SdkConfigBuilder {
   withAllowsCamera() {
-    return this.withAllowedCaptureMethod(DocScanConstants.CAMERA);
+    return this.withAllowedCaptureMethods(DocScanConstants.CAMERA);
   }
 
   withAllowsCameraAndUpload() {
-    return this.withAllowedCaptureMethod(DocScanConstants.CAMERA_AND_UPLOAD);
+    return this.withAllowedCaptureMethods(DocScanConstants.CAMERA_AND_UPLOAD);
   }
 
   withAllowedCaptureMethods(allowedCaptureMethods) {

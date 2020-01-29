@@ -1,5 +1,7 @@
 const SessionSpecification = require('./session.specification');
 const NotificationConfig = require('./notification.config');
+const RequestedTask = require('./task/requested.task');
+const RequestedCheck = require('./check/requested.check');
 const SdkConfig = require('./sdk.config');
 const Validation = require('../../../yoti_common/validation');
 
@@ -34,13 +36,13 @@ class SessionSpecificationBuilder {
   }
 
   withRequestedCheck(requestedCheck) {
-    // @TODO RequestedCheck validation
+    Validation.instanceOf(requestedCheck, RequestedCheck, 'requestedCheck');
     this.requestedChecks.push(requestedCheck);
     return this;
   }
 
   withRequestedTask(requestedTask) {
-    // @TODO RequestedTask validation
+    Validation.instanceOf(requestedTask, RequestedTask, 'requestedTask');
     this.requestedTasks.push(requestedTask);
     return this;
   }

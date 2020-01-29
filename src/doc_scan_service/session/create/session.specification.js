@@ -1,6 +1,8 @@
 const Validation = require('../../../yoti_common/validation');
 const NotificationConfig = require('./notification.config');
 const SdkConfig = require('./sdk.config');
+const RequestedTask = require('./task/requested.task');
+const RequestedCheck = require('./check/requested.check');
 
 class SessionSpecification {
   constructor(
@@ -24,10 +26,10 @@ class SessionSpecification {
     Validation.instanceOf(notifications, NotificationConfig, 'notifications');
     this.notifications = notifications;
 
-    // @TODO List<RequestedCheck> validation
+    Validation.isArrayOfType(requestedChecks, RequestedCheck, 'requestedChecks');
     this.requestedChecks = requestedChecks;
 
-    // @TODO List<RequestedTask> validation
+    Validation.isArrayOfType(requestedTasks, RequestedTask, 'requestedTasks');
     this.requestedTasks = requestedTasks;
 
     Validation.instanceOf(sdkConfig, SdkConfig, 'sdkConfig');

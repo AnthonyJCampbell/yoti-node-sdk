@@ -10,8 +10,7 @@ class RequestedLivenessCheckBuilder {
   }
 
   forZoomLiveness() {
-    this.livenessType = DocScanConstants.ZOOM;
-    return this;
+    return this.forLivenessType(DocScanConstants.ZOOM);
   }
 
   forLivenessType(livenessType) {
@@ -21,7 +20,7 @@ class RequestedLivenessCheckBuilder {
   }
 
   withMaxRetries(maxRetries) {
-    Validation.isString(maxRetries, 'maxRetries');
+    Validation.isInteger(maxRetries, 'maxRetries');
     this.maxRetries = maxRetries;
     return this;
   }

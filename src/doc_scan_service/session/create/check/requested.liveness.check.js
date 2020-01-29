@@ -1,5 +1,5 @@
 
-const RequestedCheck = require('./requested.liveness.config');
+const RequestedCheck = require('./requested.check');
 const RequestedLivenessConfig = require('./requested.liveness.config');
 const DocScanConstants = require('../../../doc.scan.constants');
 const Validation = require('../../../../yoti_common/validation');

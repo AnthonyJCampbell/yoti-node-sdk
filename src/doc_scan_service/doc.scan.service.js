@@ -1,10 +1,10 @@
 const { RequestBuilder } = require('../request/request.builder');
 const { Payload } = require('../request/payload');
-const SessionSpecification = require('./session/create/session.specification');
+const SessionSpecification = require('../doc_scan_service/session/create/session.specification');
 const Validation = require('../yoti_common/validation');
 const config = require('../../config');
 
-class DocScanClient {
+class DocScanService {
   constructor(applicationId, pem) {
     this.applicationId = applicationId;
     this.pem = pem;
@@ -41,4 +41,4 @@ class DocScanClient {
   }
 }
 
-module.exports = DocScanClient;
+module.exports = DocScanService;

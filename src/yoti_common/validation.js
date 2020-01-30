@@ -146,10 +146,23 @@ module.exports = class Validation {
    *
    * @throws {TypeError}
    */
+  static isArrayOfStrings(values, name) {
+    this.isArray(values, name);
+    values.forEach((value) => {
+      this.isString(value, `${name} items`);
+    });
+  }
+
+  /**
+   * @param {*} values
+   * @param {string} name
+   *
+   * @throws {TypeError}
+   */
   static isArrayOfIntegers(values, name) {
     this.isArray(values, name);
     values.forEach((value) => {
-      this.isInteger(value, 'authType');
+      this.isInteger(value, `${name} items`);
     });
   }
 

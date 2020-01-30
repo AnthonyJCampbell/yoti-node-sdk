@@ -17,24 +17,16 @@ module.exports = class Validation {
   /**
    * @param {*} value
    * @param {string} name
+   * @param {bool} optional the value can be undefined
    *
    * @throws {TypeError}
    */
-  static isString(value, name) {
+  static isString(value, name, optional = false) {
+    if ((typeof value) === 'undefined' && optional) {
+      return;
+    }
     if ((typeof value) !== 'string') {
       throw TypeError(`${name} must be a string`);
-    }
-  }
-
-  /**
-   * @param {*} value
-   * @param {string} name
-   *
-   * @throws {TypeError}
-   */
-  static isStringOrUndefined(value, name) {
-    if ((typeof value) !== 'undefined') {
-      this.isString(value, name);
     }
   }
 
@@ -80,24 +72,16 @@ module.exports = class Validation {
   /**
    * @param {*} value
    * @param {string} name
+   * @param {bool} optional the value can be undefined
    *
    * @throws {TypeError}
    */
-  static isInteger(value, name) {
+  static isInteger(value, name, optional = false) {
+    if ((typeof value) === 'undefined' && optional) {
+      return;
+    }
     if (!Number.isInteger(value)) {
       throw TypeError(`${name} must be an integer`);
-    }
-  }
-
-  /**
-   * @param {*} value
-   * @param {string} name
-   *
-   * @throws {TypeError}
-   */
-  static isIntegerOrUndefined(value, name) {
-    if ((typeof value) !== 'undefined') {
-      this.isInteger(value, name);
     }
   }
 

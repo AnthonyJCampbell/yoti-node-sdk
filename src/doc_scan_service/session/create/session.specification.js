@@ -14,13 +14,13 @@ class SessionSpecification {
     requestedTasks,
     sdkConfig
   ) {
-    Validation.isIntegerOrUndefined(clientSessionTokenTtl, 'clientSessionTokenTtl');
+    Validation.isInteger(clientSessionTokenTtl, 'clientSessionTokenTtl', true);
     this.clientSessionTokenTtl = clientSessionTokenTtl;
 
-    Validation.isIntegerOrUndefined(resourcesTtl, 'resourcesTtl');
+    Validation.isInteger(resourcesTtl, 'resourcesTtl', true);
     this.resourcesTtl = resourcesTtl;
 
-    Validation.isStringOrUndefined(userTrackingId, 'userTrackingId');
+    Validation.isString(userTrackingId, 'userTrackingId', true);
     this.userTrackingId = userTrackingId;
 
     if (notifications) {

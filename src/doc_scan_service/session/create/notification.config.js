@@ -2,10 +2,10 @@ const Validation = require('../../../yoti_common/validation');
 
 class NotificationConfig {
   constructor(authToken, endpoint, topics) {
-    Validation.isStringOrUndefined(authToken, 'authToken');
+    Validation.isString(authToken, 'authToken', true);
     this.authToken = authToken;
 
-    Validation.isStringOrUndefined(endpoint, 'endpoint');
+    Validation.isString(endpoint, 'endpoint', true);
     this.endpoint = endpoint;
 
     if (topics) {

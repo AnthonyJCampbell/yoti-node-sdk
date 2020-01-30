@@ -1,16 +1,18 @@
 const Validation = require('../../../yoti_common/validation');
 
 class NotificationConfig {
-  SimpleNotificationConfig(authToken, endpoint, topics) {
-    Validation.isString(authToken, 'authToken');
+  constructor(authToken, endpoint, topics) {
+    Validation.isStringOrUndefined(authToken, 'authToken');
     this.authToken = authToken;
 
-    Validation.isString(endpoint, 'endpoint');
+    Validation.isStringOrUndefined(endpoint, 'endpoint');
     this.endpoint = endpoint;
 
-    Validation.isArray(topics, 'topics');
-    Validation.hasOnlyStringValues(topics, 'topics');
-    this.topics = topics;
+    if (topics) {
+      Validation.isArray(topics, 'topics');
+      Validation.hasOnlyStringValues(topics, 'topics');
+      this.topics = topics;
+    }
   }
 
   toJSON() {

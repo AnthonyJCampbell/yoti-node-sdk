@@ -10,21 +10,12 @@ const {
 
 describe('SessionSpecificationBuilder', () => {
   it('should build SessionSpecification', () => {
-    const sdkConfigBuilder = new SdkConfigBuilder()
+    const sdkConfig = new SdkConfigBuilder()
       .withAllowsCamera()
-      .withPrimaryColour('some-colour')
-      .withSecondaryColour('some-secondary-colour')
-      .withFontColour('some-font-colour')
-      .withErrorUrl('some-error-url')
-      .withSuccessUrl('some-success-url')
-      .withLocale('some-url')
-      .withPresetIssuingCountry('some-country')
       .build();
 
     const notificationConfig = new NotificationConfigBuilder()
       .withEndpoint('some-endpoint')
-      .withAuthToken('some-auth-token')
-      .withTopic('some-topic')
       .build();
 
     const textExtractionTask = new RequestedTextExtractionTaskBuilder()
@@ -45,7 +36,7 @@ describe('SessionSpecificationBuilder', () => {
     const sessionSpec = new SessionSpecificationBuilder()
       .withClientSessionTokenTtl(30)
       .withUserTrackingId('some-tracking-id')
-      .withSdkConfig(sdkConfigBuilder)
+      .withSdkConfig(sdkConfig)
       .withNotifications(notificationConfig)
       .withResourcesTtl(10)
       .withRequestedCheck(faceMatchCheck)
@@ -58,7 +49,10 @@ describe('SessionSpecificationBuilder', () => {
       client_session_token_ttl: 30,
       resources_ttl: 10,
       user_tracking_id: 'some-tracking-id',
-      notifications: {},
+      notifications: {
+        endpoint: 'some-endpoint',
+        topics: [],
+      },
       requested_checks: [
         {
           type: 'ID_DOCUMENT_FACE_MATCH',
@@ -87,13 +81,6 @@ describe('SessionSpecificationBuilder', () => {
       ],
       sdk_config: {
         allowed_capture_methods: 'CAMERA',
-        primary_colour: 'some-colour',
-        secondary_colour: 'some-secondary-colour',
-        font_colour: 'some-font-colour',
-        locale: 'some-url',
-        preset_issuing_country: 'some-country',
-        success_url: 'some-success-url',
-        error_url: 'some-error-url',
       },
     });
 

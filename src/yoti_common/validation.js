@@ -32,6 +32,18 @@ module.exports = class Validation {
    *
    * @throws {TypeError}
    */
+  static isStringOrUndefined(value, name) {
+    if ((typeof value) !== 'undefined') {
+      this.isString(value, name);
+    }
+  }
+
+  /**
+   * @param {*} value
+   * @param {string} name
+   *
+   * @throws {TypeError}
+   */
   static isBoolean(value, name) {
     if ((typeof value) !== 'boolean') {
       throw TypeError(`${name} must be a boolean`);
@@ -74,6 +86,18 @@ module.exports = class Validation {
   static isInteger(value, name) {
     if (!Number.isInteger(value)) {
       throw TypeError(`${name} must be an integer`);
+    }
+  }
+
+  /**
+   * @param {*} value
+   * @param {string} name
+   *
+   * @throws {TypeError}
+   */
+  static isIntegerOrUndefined(value, name) {
+    if ((typeof value) !== 'undefined') {
+      this.isInteger(value, name);
     }
   }
 

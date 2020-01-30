@@ -1,14 +1,14 @@
 const Validation = require('../../../yoti_common/validation');
 
-class SesssionResult {
+class SessionResult {
   constructor(response) {
-    Validation.isInteger(response.client_session_token_ttl);
+    Validation.isIntegerOrUndefined(response.client_session_token_ttl);
     this.clientSessionTokenTtl = response.client_session_token_ttl;
 
-    Validation.isString(response.client_session_token);
+    Validation.isStringOrUndefined(response.client_session_token);
     this.clientSessionToken = response.client_session_token;
 
-    Validation.isString(response.session_id);
+    Validation.isStringOrUndefined(response.session_id);
     this.sessionId = response.session_id;
   }
 
@@ -25,4 +25,4 @@ class SesssionResult {
   }
 }
 
-module.exports = SesssionResult;
+module.exports = SessionResult;

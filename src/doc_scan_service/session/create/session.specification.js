@@ -14,26 +14,30 @@ class SessionSpecification {
     requestedTasks,
     sdkConfig
   ) {
-    Validation.isInteger(clientSessionTokenTtl, 'clientSessionTokenTtl');
+    Validation.isIntegerOrUndefined(clientSessionTokenTtl, 'clientSessionTokenTtl');
     this.clientSessionTokenTtl = clientSessionTokenTtl;
 
-    Validation.isInteger(resourcesTtl, 'resourcesTtl');
+    Validation.isIntegerOrUndefined(resourcesTtl, 'resourcesTtl');
     this.resourcesTtl = resourcesTtl;
 
-    Validation.isString(userTrackingId, 'userTrackingId');
+    Validation.isStringOrUndefined(userTrackingId, 'userTrackingId');
     this.userTrackingId = userTrackingId;
 
-    Validation.instanceOf(notifications, NotificationConfig, 'notifications');
-    this.notifications = notifications;
+    if (notifications) {
+      Validation.instanceOf(notifications, NotificationConfig, 'notifications');
+      this.notifications = notifications;
+    }
+
+    if (sdkConfig) {
+      Validation.instanceOf(sdkConfig, SdkConfig, 'sdkConfig');
+      this.sdkConfig = sdkConfig;
+    }
 
     Validation.isArrayOfType(requestedChecks, RequestedCheck, 'requestedChecks');
     this.requestedChecks = requestedChecks;
 
     Validation.isArrayOfType(requestedTasks, RequestedTask, 'requestedTasks');
     this.requestedTasks = requestedTasks;
-
-    Validation.instanceOf(sdkConfig, SdkConfig, 'sdkConfig');
-    this.sdkConfig = sdkConfig;
   }
 
   /**

@@ -12,28 +12,28 @@ class SdkConfig {
     successUrl,
     errorUrl
   ) {
-    Validation.isString(allowedCaptureMethods, 'allowedCaptureMethods');
+    Validation.isStringOrUndefined(allowedCaptureMethods, 'allowedCaptureMethods');
     this.allowedCaptureMethods = allowedCaptureMethods;
 
-    Validation.isString(primaryColour, 'primaryColour');
+    Validation.isStringOrUndefined(primaryColour, 'primaryColour');
     this.primaryColour = primaryColour;
 
-    Validation.isString(secondaryColour, 'secondaryColour');
+    Validation.isStringOrUndefined(secondaryColour, 'secondaryColour');
     this.secondaryColour = secondaryColour;
 
-    Validation.isString(fontColour, 'fontColour');
+    Validation.isStringOrUndefined(fontColour, 'fontColour');
     this.fontColour = fontColour;
 
-    Validation.isString(locale, 'locale');
+    Validation.isStringOrUndefined(locale, 'locale');
     this.locale = locale;
 
-    Validation.isString(presetIssuingCountry, 'presetIssuingCountry');
+    Validation.isStringOrUndefined(presetIssuingCountry, 'presetIssuingCountry');
     this.presetIssuingCountry = presetIssuingCountry;
 
-    Validation.isString(successUrl, 'successUrl');
+    Validation.isStringOrUndefined(successUrl, 'successUrl');
     this.successUrl = successUrl;
 
-    Validation.isString(errorUrl, 'errorUrl');
+    Validation.isStringOrUndefined(errorUrl, 'errorUrl');
     this.errorUrl = errorUrl;
   }
 

@@ -1,0 +1,20 @@
+const Validation = require('../../../yoti_common/validation');
+const DocScanConstants = require('../../doc.scan.constants');
+
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["getType"] }] */
+class GeneratedCheckResponse {
+  constructor(response) {
+    Validation.isString(response.id, 'id', true);
+    this.id = response.id;
+  }
+
+  getId() {
+    return this.id;
+  }
+
+  getType() {
+    return DocScanConstants.ID_DOCUMENT_TEXT_DATA_CHECK;
+  }
+}
+
+module.exports = GeneratedCheckResponse;

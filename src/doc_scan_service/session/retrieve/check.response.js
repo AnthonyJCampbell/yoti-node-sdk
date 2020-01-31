@@ -1,31 +1,33 @@
 const Validation = require('../../../yoti_common/validation');
+const ReportResponse = require('./report.response');
 
 class CheckResponse {
-  constructor(response) {
+  constructor(check) {
     if (new.target === CheckResponse) {
       throw TypeError('CheckResponse cannot be instantiated');
     }
 
-    Validation.isString(response.id, 'id', true);
-    this.id = response.id;
+    Validation.isString(check.id, 'id', true);
+    this.id = check.id;
 
-    Validation.isString(response.state, 'state', true);
-    this.state = response.state;
+    Validation.isString(check.state, 'state', true);
+    this.state = check.state;
 
-    Validation.isArrayOfStrings(response.resources_used, 'resources_used');
-    this.resourcesUsed = response.resources_used;
+    Validation.isArrayOfStrings(check.resources_used, 'resources_used');
+    this.resourcesUsed = check.resources_used;
 
-    // Validation.isArrayOfType(response.generated_media, GeneratedMedia,  'generated_media');
-    this.generatedMedia = response.generated_media;
+    /** @TODO GeneratedMedia[] */
+    this.generatedMedia = check.generated_media;
 
-    // Validation.instanceOf(response.report, ReportResponse, 'report');
-    this.report = response.report;
+    if (check.report) {
+      this.report = new ReportResponse(check.report);
+    }
 
-    Validation.isString(response.created, 'created', true);
-    this.created = response.created;
+    Validation.isString(check.created, 'created', true);
+    this.created = check.created;
 
-    Validation.isString(response.last_updated, 'last_updated', true);
-    this.lastUpdated = response.last_updated;
+    Validation.isString(check.last_updated, 'last_updated', true);
+    this.lastUpdated = check.last_updated;
   }
 
   getId() {

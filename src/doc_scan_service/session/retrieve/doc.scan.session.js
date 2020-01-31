@@ -1,4 +1,7 @@
 const Validation = require('../../../yoti_common/validation');
+const CheckResponse = require('./check.response');
+const CheckResponseFactory = require('./check.response.factory');
+const ResourceContainer = require('./resource.container');
 
 class DocScanSession {
   constructor(response) {
@@ -17,11 +20,22 @@ class DocScanSession {
     Validation.isString(response.client_session_token, 'client_session_token', true);
     this.clientSessionToken = response.client_session_token;
 
-    // @TODO validation list of CheckResponse
-    this.checks = response.checks;
+    if (response.checks) {
+      Validation.isArray(response.checks, 'checks');
+      this.checks = response
+        .checks
+        .map((check) => {
+          try {
+            return CheckResponseFactory.createFromResponse(check);
+          } catch (e) {
+            console.log(e.message());
+            return null;
+          }
+        })
+        .filter(check => check instanceof CheckResponse);
+    }
 
-    // @TODO validate type ResourceContainer
-    this.resources = response.resources;
+    this.resources = new ResourceContainer(response.resources);
   }
 
   getSessionId() {

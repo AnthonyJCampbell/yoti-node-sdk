@@ -7,19 +7,19 @@ class DocumentResourceResponse extends ResourceResponse {
   constructor(resource) {
     super(resource);
 
-    Validation.isString(resource.documentType, 'documentType', true);
-    this.documentType = resource.documentType;
+    Validation.isString(resource.document_type, 'document_type', true);
+    this.documentType = resource.document_type;
 
-    Validation.isString(resource.issuingCountry, 'issuingCountry', true);
-    this.issuingCountry = resource.issuingCountry;
+    Validation.isString(resource.issuing_country, 'issuing_country', true);
+    this.issuingCountry = resource.issuing_country;
 
     if (resource.pages) {
       Validation.isArray(resource.pages, 'pages');
       this.pages = resource.pages.map(page => new PageInfo(page));
     }
 
-    if (resource.documentFields) {
-      this.documentFields = new DocumentFieldsResponse(resource.documentFields);
+    if (resource.document_fields) {
+      this.documentFields = new DocumentFieldsResponse(resource.document_fields);
     }
   }
 

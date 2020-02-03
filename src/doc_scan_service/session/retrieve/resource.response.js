@@ -1,9 +1,14 @@
 const TaskResponse = require('./task.response');
+const Validation = require('../../../yoti_common/validation');
 
 class ResourceResponse {
   constructor(resource) {
+    Validation.isString(resource.id, 'id', true);
     this.id = resource.id;
-    this.tasks = resource.tasks.map(task => new TaskResponse(task));
+
+    if (resource.tasks) {
+      this.tasks = resource.tasks.map(task => new TaskResponse(task));
+    }
   }
 
   getTasks() {

@@ -1,24 +1,30 @@
 const Validation = require('../../../yoti_common/validation');
+const GeneratedCheckResponse = require('./generated.check.response');
+const GeneratedMedia = require('./generated.media');
 
 class TaskResponse {
   constructor(task) {
-    Validation.isString(task.id, 'id', true);
+    Validation.isString(task.id, 'id');
     this.id = task.id;
 
-    Validation.isString(task.state, 'state', true);
+    Validation.isString(task.state, 'state');
     this.state = task.state;
 
-    Validation.isString(task.created, 'created', true);
+    Validation.isString(task.created, 'created');
     this.created = task.created;
 
-    Validation.isString(task.last_updated, 'last_updated', true);
+    Validation.isString(task.last_updated, 'last_updated');
     this.last_updated = task.last_updated;
 
-    /** @TODO GeneratedCheckResponse[] */
-    this.generated_checks = task.generated_checks;
+    if (task.generated_checks) {
+      Validation.isArray(task.generated_checks, 'generated_checks');
+      this.generatedChecks = task.generated_checks.map(check => new GeneratedCheckResponse(check));
+    }
 
-    /** @TODO GeneratedMedia[] */
-    this.generated_media = task.generated_media;
+    if (task.generated_media) {
+      Validation.isArray(task.generated_media, 'generated_media');
+      this.generatedMedia = task.generated_media.map(media => new GeneratedMedia(media));
+    }
   }
 
   getId() {

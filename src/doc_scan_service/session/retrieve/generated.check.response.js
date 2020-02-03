@@ -3,9 +3,9 @@ const DocScanConstants = require('../../doc.scan.constants');
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["getType"] }] */
 class GeneratedCheckResponse {
-  constructor(response) {
-    Validation.isString(response.id, 'id', true);
-    this.id = response.id;
+  constructor(check) {
+    Validation.isString(check.id, 'id');
+    this.id = check.id;
   }
 
   getId() {

@@ -1,10 +1,11 @@
-const Validation = require('../../../yoti_common/validation');
 const ReportResponse = require('./report.response');
+const GeneratedMedia = require('./generated.media');
+const Validation = require('../../../yoti_common/validation');
 
 class CheckResponse {
   constructor(check) {
     if (new.target === CheckResponse) {
-      throw TypeError('CheckResponse cannot be instantiated');
+      throw TypeError(`${new.target.name} cannot be instantiated`);
     }
 
     Validation.isString(check.id, 'id', true);
@@ -13,11 +14,15 @@ class CheckResponse {
     Validation.isString(check.state, 'state', true);
     this.state = check.state;
 
-    Validation.isArrayOfStrings(check.resources_used, 'resources_used');
-    this.resourcesUsed = check.resources_used;
+    if (check.resources_used) {
+      Validation.isArrayOfStrings(check.resources_used, 'resources_used');
+      this.resourcesUsed = check.resources_used;
+    }
 
-    /** @TODO GeneratedMedia[] */
-    this.generatedMedia = check.generated_media;
+    if (check.generated_media) {
+      Validation.isArray(check.generated_media, 'generated_media');
+      this.generatedMedia = check.generated_media.map(media => new GeneratedMedia(media));
+    }
 
     if (check.report) {
       this.report = new ReportResponse(check.report);

@@ -1,14 +1,31 @@
+const DocumentResourceResponse = require('./document.resource.response');
+const ZoomLivenessResourceResponse = require('./zoom.liveness.resource.response');
+const DocScanConstants = require('../../doc.scan.constants');
+const Validation = require('../../../yoti_common/validation');
+
 class ResourceContainer {
-  constructor(response) {
-    /** @TODO DocumentResourceResponse[] */
-    this.idDocuments = response.id_documents;
+  constructor(resources) {
+    if (resources.id_documents) {
+      Validation.isArray(resources.id_documents, 'id_documents');
+      this.idDocuments = resources
+        .id_documents
+        .map(resource => new DocumentResourceResponse(resource));
+    }
 
-    /** @TODO LivenessResourceResponse[] */
-    this.livenessCapture = response.liveness_capture;
-
-    /** @TODO - should this be here? */
-    // CheckResponse[]
-    this.checks = response.checks;
+    if (resources.liveness_capture) {
+      Validation.isArray(resources.liveness_capture, 'liveness_capture');
+      this.livenessCapture = resources
+        .liveness_capture
+        .map((resource) => {
+          switch (resource.type) {
+            case DocScanConstants.ZOOM:
+              return new ZoomLivenessResourceResponse(resource);
+            default:
+              return null;
+          }
+        })
+        .filter(resource => resource !== null);
+    }
   }
 
   /**
@@ -29,13 +46,6 @@ class ResourceContainer {
    */
   getLivenessCapture() {
     return this.livenessCapture;
-  }
-
-  /**
-   * @TODO should this be here?
-   */
-  getChecks() {
-    return this.checks;
   }
 }
 

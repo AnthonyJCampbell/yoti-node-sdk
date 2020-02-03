@@ -1,7 +1,14 @@
 const Validation = require('../../../yoti_common/validation');
-const CheckResponse = require('./check.response');
-const CheckResponseFactory = require('./check.response.factory');
 const ResourceContainer = require('./resource.container');
+const AuthenticityCheckResponse = require('./authenticity.check.response');
+const FaceMatchCheckResponse = require('./face.match.check.response');
+const TextDataCheckResponse = require('./text.data.check.response');
+const ZoomLivenessCheckResponse = require('./zoom.liveness.check.response');
+
+const ID_DOCUMENT_AUTHENTICITY = 'ID_DOCUMENT_AUTHENTICITY';
+const ID_DOCUMENT_TEXT_DATA_CHECK = 'ID_DOCUMENT_TEXT_DATA_CHECK';
+const ID_DOCUMENT_FACE_MATCH = 'ID_DOCUMENT_FACE_MATCH';
+const LIVENESS = 'LIVENESS';
 
 class DocScanSession {
   constructor(response) {
@@ -25,17 +32,27 @@ class DocScanSession {
       this.checks = response
         .checks
         .map((check) => {
-          try {
-            return CheckResponseFactory.createFromResponse(check);
-          } catch (e) {
-            console.log(e.message());
-            return null;
+          switch (check.type) {
+            case ID_DOCUMENT_AUTHENTICITY:
+              return new AuthenticityCheckResponse(check);
+            case ID_DOCUMENT_TEXT_DATA_CHECK:
+              return new FaceMatchCheckResponse(check);
+            case ID_DOCUMENT_FACE_MATCH:
+              return new TextDataCheckResponse(check);
+            case LIVENESS:
+              return new ZoomLivenessCheckResponse(check);
+            default:
+              console.log(`${this.constructor.name}: Unknown check type ${check.type}`);
+              return null;
           }
         })
-        .filter(check => check instanceof CheckResponse);
+        .filter(check => check !== null);
     }
 
-    this.resources = new ResourceContainer(response.resources);
+    if (response.resources) {
+      Validation.instanceOf(response.resources, Object);
+      this.resources = new ResourceContainer(response.resources);
+    }
   }
 
   getSessionId() {

@@ -8,8 +8,10 @@ class BreakdownResponse {
     Validation.isString(breakdown.result, 'result', true);
     this.result = breakdown.result;
 
-    Validation.isString(breakdown.details, 'details', true);
-    this.details = breakdown.details;
+    if (breakdown.details) {
+      Validation.isArray(breakdown.details, 'details');
+      this.details = breakdown.details;
+    }
   }
 
   getSubCheck() {

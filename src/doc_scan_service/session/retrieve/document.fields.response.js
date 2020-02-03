@@ -2,7 +2,7 @@ const MediaResponse = require('./media.response');
 
 class DocumentFieldsResponse {
   constructor(documentFields) {
-    if (this.media) {
+    if (documentFields.media) {
       this.media = new MediaResponse(documentFields.media);
     }
   }

@@ -11,8 +11,8 @@ class MediaResponse {
     Validation.isString(media.created, 'created', true);
     this.created = media.created;
 
-    Validation.isString(media.lastUpdated, 'lastUpdated', true);
-    this.lastUpdated = media.lastUpdated;
+    Validation.isString(media.last_updated, 'last_updated', true);
+    this.lastUpdated = media.last_updated;
   }
 
   getId() {
